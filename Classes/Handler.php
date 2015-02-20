@@ -58,7 +58,7 @@ class Handler {
 		list ($recordTableName, $recordUid) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(':', $linkHandlerValue);
 
 		$recordArray = $this->getCurrentRecord($recordTableName, $recordUid);
-		if ($this->isRecordLinkable($recordTableName, $typoScriptConfiguration, $recordArray)) {
+		if ($recordArray && $this->isRecordLinkable($recordTableName, $typoScriptConfiguration, $recordArray)) {
 
 			$this->localContentObject = clone $contentObjectRenderer;
 			$this->localContentObject->start($recordArray, '');
