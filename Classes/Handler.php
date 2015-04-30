@@ -54,7 +54,8 @@ class Handler {
 		$generatedLink = $linkText;
 
 		// extract link params like "target", "css-class" or "title"
-		$additionalLinkParameters = str_replace($linkHandlerKeyword . ':' . $linkHandlerValue, '', $linkParameters);
+		$additionalLinkParameters = str_replace('"' . $linkHandlerKeyword . ':' . $linkHandlerValue . '"', '', $linkParameters);
+		$additionalLinkParameters = str_replace($linkHandlerKeyword . ':' . $linkHandlerValue, '', $additionalLinkParameters);
 		list ($recordTableName, $recordUid) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(':', $linkHandlerValue);
 
 		$recordArray = $this->getCurrentRecord($recordTableName, $recordUid);
@@ -62,6 +63,8 @@ class Handler {
 
 			$this->localContentObject = clone $contentObjectRenderer;
 			$this->localContentObject->start($recordArray, '');
+
+			unset($typoLinkConfiguration['parameter']);
 			$typoScriptConfiguration[$recordTableName . '.']['parameter'] .= $additionalLinkParameters;
 
 			$currentLinkConfigurationArray = $this->mergeTypoScript($typoScriptConfiguration, $typoLinkConfiguration, $recordTableName);
