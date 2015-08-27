@@ -69,6 +69,12 @@ class Handler {
 
 			$currentLinkConfigurationArray = $this->mergeTypoScript($typoScriptConfiguration, $typoLinkConfiguration, $recordTableName);
 
+			if (isset($currentLinkConfigurationArray['storagePidParameterOverride.'])) {
+				if (array_key_exists($recordArray['pid'], $currentLinkConfigurationArray['storagePidParameterOverride.'])) {
+					$currentLinkConfigurationArray['parameter'] = $currentLinkConfigurationArray['storagePidParameterOverride.'][$recordArray['pid']];
+				}
+			}
+
 			// build the full link to the record
 			$generatedLink = $this->localContentObject->typoLink($linkText, $currentLinkConfigurationArray);
 
