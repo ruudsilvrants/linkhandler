@@ -55,3 +55,16 @@ Basic usage example ext:news
     	}
     }
 
+**Overriding typolink parameter based on storage**
+
+You can simply override the typolinkparameter for a certain storage pid with following configuration:
+
+	tx_news_domain_model_news{
+		# typolink settings
+		storagePidParameterOverride {
+			{$storagePid} = {$detailPid2}
+		}
+        parameter = {$newsDetailPid}
+	}
+
+When no matches are found the default parameter (in this case {$newsDetailPid} is used.
